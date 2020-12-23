@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        指导界面
+    </title>
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/bootstrap-select.min.js"></script>
+    <script src="/static/js/general.js"></script>
+    <script src="/static/js/annotator.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var url="api/test";
+            $.ajax({
+                type:"get",
+                url:url,
+                success:function(userList){
+                    userList = userList.data
+                    var unitObj=document.getElementById("mySelect"); //页面上的<html:select>元素
+                    if(userList!=null){ //后台传回来的select选项
+                        for(var i=0;i<userList.length;i++){
+                            //遍历后台传回的结果，一项项往select中添加option
+                            unitObj.options.add(new Option(userList[i].name,userList[i].name));
+                        }
+                    }
+                },
+                error:function(){
+                    J.alert('Error');
+                }
+            })
+        })
+    </script>{% load static %}
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <td>
+                    <button>挑图</button>
+
+                    <img src="{% static "images/ADAS_20201111-081722_401_1__29298_1605053842317_0.jpg" %}" alt="runoob-logo">
+                </td>
+                <td>
+                    <select id="mySelect">
+                        <option>查看</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>导入</td>
+                <td>报告</td>
+            </tr>
+        </table>
+    </div>
+
+</body>
+</html>
